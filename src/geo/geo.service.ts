@@ -10,13 +10,13 @@ export class GeoService {
   }
 
   isValidIPAddress(ip: string): boolean {
-    return isV4Format(ip) || isV6Format(ip);
+    return ip.length && (isV4Format(ip) || isV6Format(ip));
   }
 
   createGeolocationResponse(geo?: Lookup): Geolocation {
     if(geo) {
       const { city, country, ll: [lat, lng] } = geo;
-      return { city, country, lat, lng };
+      return { city, country, lat: String(lat), lng: String(lng) };
     }
     return { city:"", country:"", lat:"", lng:"" };
   }
